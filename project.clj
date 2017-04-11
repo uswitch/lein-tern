@@ -1,4 +1,4 @@
-(defproject lein-tern "0.2.0"
+(defproject uswitch/lein-tern "0.2.0"
   :description "Migrations as data"
   :url "http://github.com/uswitch/lein-tern"
   :license {:name "MIT"
