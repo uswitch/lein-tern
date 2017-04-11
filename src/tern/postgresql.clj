@@ -180,8 +180,8 @@
       [(format "SELECT version FROM %s
                ORDER BY created DESC
                LIMIT 1" version-table)]
-      :row-fn :version
-      :result-set-fn first)))
+      {:row-fn        :version
+       :result-set-fn first})))
 
 (defn- update-schema-version
   [version-table version]
