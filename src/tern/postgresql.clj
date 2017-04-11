@@ -25,8 +25,8 @@
   [{table :create-table columns :columns :as command}]
   (log/info " - Creating table" (log/highlight (name table)))
   (if-let [table-spec (generate-table-spec command)]
-    [(apply jdbc/create-table-ddl table (conj columns [table-spec]))]
-    [(apply jdbc/create-table-ddl table columns)]))
+    [(jdbc/create-table-ddl table (conj columns [table-spec]))]
+    [(jdbc/create-table-ddl table columns)]))
 
 (defmethod generate-sql
   :drop-table
@@ -141,7 +141,7 @@
 
 (defn- create-version-table
   [db version-table]
-  (apply jdbc/db-do-commands
+  (jdbc/db-do-commands
          (db-spec db)
          (generate-sql
            {:create-table version-table
@@ -203,7 +203,7 @@
 
 (defn- run-schema-migrations!
   [trans version-table version migrations]
-  (apply jdbc/db-do-commands
+  (jdbc/db-do-commands
          trans
          (conj (into [] (mapcat generate-sql migrations))
                (update-schema-version version-table version))))
