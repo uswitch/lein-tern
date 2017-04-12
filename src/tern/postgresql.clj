@@ -124,14 +124,14 @@
     (db-spec db "postgres")
     ["SELECT 1 FROM pg_catalog.pg_database
      WHERE datname = ?" (:database db)]
-    :result-set-fn first))
+    {:result-set-fn first}))
 
 (defn- table-exists?
   [db table]
   (jdbc/query
     (db-spec db)
     ["SELECT 1 FROM information_schema.tables WHERE table_name = ?" table]
-    :result-set-fn first))
+    {:result-set-fn first}))
 
 (defn- create-database
   [db]

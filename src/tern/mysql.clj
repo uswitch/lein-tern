@@ -82,14 +82,14 @@
   (jdbc/query
     (db-spec db "mysql")
     ["SELECT 1 FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?" (:database db)]
-    :result-set-fn first))
+    {:result-set-fn first}))
 
 (defn- table-exists?
   [db table]
   (jdbc/query
     (db-spec db)
     ["SELECT 1 FROM information_schema.tables WHERE table_name = ?" table]
-    :result-set-fn first))
+    {:result-set-fn first}))
 
 (defn- create-database
   [db]
@@ -132,8 +132,8 @@
       [(format "SELECT version FROM %s
                ORDER BY created DESC
                LIMIT 1" version-table)]
-      :row-fn :version
-      :result-set-fn first)))
+      {:row-fn :version
+       :result-set-fn first})))
 
 (defn- current-timestamp
   []
